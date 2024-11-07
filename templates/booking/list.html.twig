@@ -1,0 +1,29 @@
+{# templates/booking/list.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Réservations{% endblock %}
+
+{% block body %}
+    <h1>Mes Réservations</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <ul>
+        {% for booking in bookings %}
+            <li>
+                Service : {{ booking.service.name }} <br>
+                Date : {{ booking.date|date('d/m/Y H:i') }} <br>
+                {% if booking.isConfirmed %}
+                    <span class="badge bg-success">Confirmée</span>
+                {% else %}
+                    <span class="badge bg-warning">En attente</span>
+                {% endif %}
+                <a href="{{ path('booking_confirmer', {id: booking.id}) }}" class="btn btn-success btn-sm">Confirmer</a>
+                <a href="{{ path('booking_annuler', {id: booking.id}) }}" class="btn btn-danger btn-sm">Annuler</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,54 @@
+{# templates/services/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des services{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center; margin-bottom: 30px;">Nos Services</h1>
+
+    <div class="services-container">
+        {% for service in services %}
+            <div class="service-card">
+                <h2>{{ service.name }}</h2>
+                <p>{{ service.description }}</p>
+                <p><strong>Prix :</strong> {{ service.price }} €</p>
+                <a href="{{ path('booking', {serviceId: service.id}) }}" class="btn btn-primary">Réserver</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .service-card {
+            width: 300px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .service-card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            margin-bottom: 15px;
+        }
+        .service-card .btn {
+            width: 100%;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+    </style>
+{% endblock %}
